@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa3339b697aaab4a88d82ce8ee8e623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkShader: {fileID: 0}
+  chunkShader: {fileID: 7200000, guid: a649ba5b5f7a95547826d80d1c76bc63, type: 3}
 --- !u!4 &1339567477
 Transform:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSize: {x: 1, y: 1}
-  textureSize: {x: 8, y: 8}
+  textureSize: {x: 320, y: 240}
   material: {fileID: 2100000, guid: e49ae862e932ef347920fa72c6a66d3a, type: 2}
   renderTexture: {fileID: 0}
 --- !u!20 &1687258584

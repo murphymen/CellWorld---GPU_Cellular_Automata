@@ -1,0 +1,40 @@
+//#pragma kernel SetCells;
+#pragma kernel ClearData;
+#pragma kernel OneStep;
+#pragma kernel DrawChunk;
+
+#include "Cell.cginc"
+
+uint _width;
+uint _height;
+uint _inputWidth;
+uint _inputHeight;
+RWTexture2D<float4> _renderTexture;
+RWStructuredBuffer<Cell> _cellChunkBuffer;
+RWStructuredBuffer<Cell> _inputBuffer;
+
+[numthreads(8, 8, 1)]
+void ClearBuffers (uint3 id : SV_DispatchThreadID)
+{
+    // Boundary check
+    if(id.x >= width || id.y >= height)
+        return;
+
+    // Make flatIdex with y up to down
+    uint flatIndex = id.x + (id.y * width);
+    
+    cellChunkBuffer[flatIndex].isAlive = 0;
+    cellChunkBuffer[flatIndex].value = 0;
+    cellChunkBuffer[flatIndex].type = 0;
+}
+
+[numthreads(8,8,1)]
+void OneStep (uint3 id : SV_DispatchThreadID)
+{
+    if(any(id.xy >= uint2(width, height) || id.xy < uint2(0, 0)))
+        return;
+
+    uint flatIndex = id.x + (id.y * width);
+
+
+}

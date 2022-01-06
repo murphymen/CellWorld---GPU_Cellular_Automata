@@ -32,4 +32,13 @@ public class ChunkCoordinate
         else
             return false;
     }
+
+    // Zero
+    public static ChunkCoordinate zero
+    {
+        get
+        {
+            return new ChunkCoordinate(0, 0, 0);
+        }
+    }
 }

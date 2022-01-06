@@ -14,6 +14,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     public ComputeBuffer counterBuffer;
     public ComputeBuffer argsBuffer;
     uint[] counter = new uint[1];
+    public CellChunk chunk;
 
 
     // Start is called before the first frame update
@@ -29,6 +30,10 @@ public class CellWorld : UnitySingleton<CellWorld>
         OneStep();
     }
 
+    //  function info header
+    //********************************************************************
+    //
+    //********************************************************************
     void AllocateMemory()
     {
         //
@@ -44,21 +49,44 @@ public class CellWorld : UnitySingleton<CellWorld>
         counterBuffer = new ComputeBuffer(1, 4, ComputeBufferType.Counter);
         argsBuffer = new ComputeBuffer(1, sizeof(int), ComputeBufferType.IndirectArguments);
 
+        chunk = new CellChunk(textureSize, ChunkCoordinate.zero);
         //
+        chunks = new List<CellChunk>();
         for (int j = 0; j < worldSize.y; j++)
         {
             for (int i = 0; i < worldSize.x; i++)
             {
-                chunks.Add(new CellChunk(textureSize, new ChunkCoordinate(i, j, 0)));
+                //chunks.Add(new CellChunk(textureSize, new ChunkCoordinate(i, j, 0)));
             }
         }
     }
 
+    //********************************************************************
+    //  One step of the simulation
+    //********************************************************************
     void OneStep()
     {
         for(int i = 0; i < chunks.Count; i++)
         {
-            
+            ChunkShaderController.Instance.OneStep(chunks[i]);
         }
+    }
+
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        Graphics.Blit(material.mainTexture, destination);
+    }
+
+    void OnDestroy()
+    {
+        for (int i = 0; i < chunks.Count; i++)
+        {
+            chunks[i].DisposeChunk();
+        }
+
+        counterBuffer?.Dispose();
+        argsBuffer?.Dispose();
+
+        renderTexture?.Release();
     }
 }

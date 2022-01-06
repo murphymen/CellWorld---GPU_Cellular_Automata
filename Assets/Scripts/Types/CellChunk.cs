@@ -6,15 +6,27 @@ public class CellChunk
 {
     public Vector2Int size;
     public ChunkCoordinate position;
-
     public ComputeBuffer buffer;
+    public List<Cell> cells;
 
 
-public CellChunk(Vector2Int _size, ChunkCoordinate _position)
+
+    public CellChunk(Vector2Int _size, ChunkCoordinate _position)
+    {
+        position = _position;
+        size = _size;
+        buffer = new ComputeBuffer(size.x*size.y, sizeof(uint) * 3, ComputeBufferType.Structured);
+    }
+
+// function info header
+// ***********************************************************************
+// function:    LoadFromFile
+// description: Loads the chunk from a file
+// parameters:  string fileName - the name of the file to load
+// ***********************************************************************
+public void LoadFromFile(string fileName)
 {
-    position = _position;
-    size = _size;
-    buffer = new ComputeBuffer(size.x*size.y, sizeof(uint) * 3, ComputeBufferType.Structured);
+
 }
 
 public void DisposeChunk()
