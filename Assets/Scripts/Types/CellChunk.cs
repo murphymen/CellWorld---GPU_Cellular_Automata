@@ -26,7 +26,11 @@ public class CellChunk
 // ***********************************************************************
 public void LoadFromFile(string fileName)
 {
-
+    //
+    string[] lines = System.IO.File.ReadAllLines(fileName);
+    cells = new List<Cell>();
+    
+    
 }
 
 public void DisposeChunk()

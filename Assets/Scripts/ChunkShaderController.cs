@@ -38,14 +38,29 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     //********************************************************************
     //  One step of the simulation.
     //********************************************************************
-    public void OneStep(CellChunk chunk)
+    public void OneStep(CellChunk chunk, RenderTexture tex)
     {
         chunkShader.SetInt("_width", chunk.size.x);
         chunkShader.SetInt("_height", chunk.size.y);
-        chunkShader.SetTexture(OneStepKernel, "_renderTexture", CellWorld.Instance.renderTexture);
+        chunkShader.SetTexture(OneStepKernel, "_renderTexture", tex);
         chunkShader.SetBuffer(OneStepKernel, "_cellChunkBuffer", chunk.buffer);
         chunkShader.DispatchThreads(OneStepKernel, chunk.size.x, chunk.size.y, 1);
 
-        CellWorld.Instance.material.mainTexture = CellWorld.Instance.renderTexture;
+        Debug.Log("ChunkShaderControllerOneStep");
+    }
+
+    // function info header
+    //********************************************************************
+    //  Draw the chunk.
+    //********************************************************************
+    public void DrawChunk(CellChunk chunk, RenderTexture tex)
+    {
+        chunkShader.SetInt("_width", chunk.size.x);
+        chunkShader.SetInt("_height", chunk.size.y);
+        chunkShader.SetTexture(DrawChunkKernel, "_renderTexture", tex);
+        chunkShader.SetBuffer(DrawChunkKernel, "_cellChunkBuffer", chunk.buffer);
+        chunkShader.DispatchThreads(DrawChunkKernel, chunk.size.x, chunk.size.y, 1);
+
+        Debug.Log("ChunkShaderController.DrawChunk");
     }
 }

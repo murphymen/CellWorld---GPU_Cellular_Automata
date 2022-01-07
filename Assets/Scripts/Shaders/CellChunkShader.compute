@@ -13,28 +13,79 @@ RWTexture2D<float4> _renderTexture;
 RWStructuredBuffer<Cell> _cellChunkBuffer;
 RWStructuredBuffer<Cell> _inputBuffer;
 
+
+void SandBehavior(uint2 id)
+{
+    uint flatIndex = id.x + (id.y * _width);
+
+    // if below this cell is empty, then move down
+    if(_cellChunkBuffer[flatIndex - _width].type != 0)
+    {
+        _cellChunkBuffer[flatIndex - _width] = _cellChunkBuffer[flatIndex];
+        _cellChunkBuffer[flatIndex - _width].isMoved = 1;
+        
+        // clear cell on flatIndex
+        _cellChunkBuffer[flatIndex].isActive = 0;
+        _cellChunkBuffer[flatIndex].isMoved = 0;
+        _cellChunkBuffer[flatIndex].value = 0;
+        _cellChunkBuffer[flatIndex].type = 0;
+    }
+}
+
 [numthreads(8, 8, 1)]
-void ClearBuffers (uint3 id : SV_DispatchThreadID)
+void ClearData (uint3 id : SV_DispatchThreadID)
 {
     // Boundary check
-    if(id.x >= width || id.y >= height)
+    if(id.x >= _width || id.y >= _height)
         return;
 
     // Make flatIdex with y up to down
-    uint flatIndex = id.x + (id.y * width);
+    uint flatIndex = id.x + (id.y * _width);
     
-    cellChunkBuffer[flatIndex].isAlive = 0;
-    cellChunkBuffer[flatIndex].value = 0;
-    cellChunkBuffer[flatIndex].type = 0;
+    _cellChunkBuffer[flatIndex].isActive = 0;
+    _cellChunkBuffer[flatIndex].isMoved = 0;
+    _cellChunkBuffer[flatIndex].value = 0;
+    _cellChunkBuffer[flatIndex].type = 0;
 }
 
 [numthreads(8,8,1)]
 void OneStep (uint3 id : SV_DispatchThreadID)
 {
-    if(any(id.xy >= uint2(width, height) || id.xy < uint2(0, 0)))
+    if(any(id.xy >= uint2(_width, _height) || id.xy < uint2(0, 0)))
+        return;
+    if(_cellChunkBuffer[id.x + (id.y * _width)].isMoved == 1)
+        return;
+    uint flatIndex = id.x + (id.y * _width);
+
+    _renderTexture[id.xy] = float4(0.1, 0.1, .1, 1);
+
+    switch(_cellChunkBuffer[flatIndex].type)
+    {
+        case 1:
+            SandBehavior(uint2(id.x, id.y));
+            break;
+    }
+}
+
+[numthreads(8,8,1)]
+void DrawChunk (uint3 id : SV_DispatchThreadID)
+{
+    if(any(id.xy >= uint2(_width, _height) || id.xy < uint2(0, 0)))
         return;
 
-    uint flatIndex = id.x + (id.y * width);
+    uint flatIndex = id.x + (id.y * _width);
 
-
+    switch(_cellChunkBuffer[flatIndex].type)
+    {
+        case 0:
+            _renderTexture[id.xy] = float4(0, 0, 0, 1);
+            break;
+        case 1:
+            _renderTexture[id.xy] = float4(.5, .5, .5, 1);
+            break;
+        case 666:
+            _renderTexture[id.xy] = float4(1, 0, 0, 1);
+            break;
+    }
 }
+

@@ -6,7 +6,9 @@ using UnityEngine;
 public struct Cell
 {
     [SerializeField]
-    public uint isAlive;
+    public bool isActive;
+    [SerializeField]
+    public bool isMoved;
     [SerializeField]
     public uint type;
     [SerializeField]

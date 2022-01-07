@@ -21,13 +21,12 @@ public class CellWorld : UnitySingleton<CellWorld>
     void Start()
     {
         if (worldSize.x < 1 || worldSize.y < 1) return;
-            AllocateMemory();
+        AllocateMemory();
     }
 
     // Update is called once per frame
     void Update()
     {
-        OneStep();
     }
 
     //  function info header
@@ -37,7 +36,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     void AllocateMemory()
     {
         //
-        renderTexture = new RenderTexture(worldSize.x, worldSize.y, 24);
+        renderTexture = new RenderTexture(textureSize.x, textureSize.y, 24);
         renderTexture.wrapMode = TextureWrapMode.Repeat;
         renderTexture.enableRandomWrite = true;
         renderTexture.filterMode = FilterMode.Point;
@@ -66,10 +65,10 @@ public class CellWorld : UnitySingleton<CellWorld>
     //********************************************************************
     void OneStep()
     {
-        for(int i = 0; i < chunks.Count; i++)
-        {
-            ChunkShaderController.Instance.OneStep(chunks[i]);
-        }
+        ChunkShaderController.Instance.OneStep(chunk, renderTexture);
+        ChunkShaderController.Instance.DrawChunk(chunk, renderTexture);
+        material.mainTexture = renderTexture;
+        Debug.Log("CellWorld.OneStep");
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -81,12 +80,25 @@ public class CellWorld : UnitySingleton<CellWorld>
     {
         for (int i = 0; i < chunks.Count; i++)
         {
-            chunks[i].DisposeChunk();
+            chunks[i]?.DisposeChunk();
         }
 
+        chunk?.DisposeChunk();
         counterBuffer?.Dispose();
         argsBuffer?.Dispose();
-
         renderTexture?.Release();
+    }
+
+    // On gui
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 100, 20), "Cells: " + counter[0]);
+
+        // Button OneStep
+        if (GUI.Button(new Rect(10, 30, 100, 20), "OneStep"))
+        {
+            OneStep();
+            
+        }
     }
 }
