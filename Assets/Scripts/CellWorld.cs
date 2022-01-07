@@ -11,6 +11,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     public RenderTexture renderTexture;
 
     // Debug
+    public ComputeBuffer inputBuffer;
     public ComputeBuffer counterBuffer;
     public ComputeBuffer argsBuffer;
     uint[] counter = new uint[1];
@@ -44,12 +45,16 @@ public class CellWorld : UnitySingleton<CellWorld>
         renderTexture.Create();
         material.SetTexture("_renderTexture", renderTexture);
 
-        //
+        // 
         counterBuffer = new ComputeBuffer(1, 4, ComputeBufferType.Counter);
         argsBuffer = new ComputeBuffer(1, sizeof(int), ComputeBufferType.IndirectArguments);
 
-        chunk = new CellChunk(textureSize, ChunkCoordinate.zero);
-        //
+        // load from file
+        chunk = new CellChunk();
+        chunk.Initalize(new Vector2Int(32, 32), new ChunkCoordinate(0, 0, 0));
+        chunk.InsertCell(new Vector2Int(16, 16), 1);
+
+        /*
         chunks = new List<CellChunk>();
         for (int j = 0; j < worldSize.y; j++)
         {
@@ -58,6 +63,7 @@ public class CellWorld : UnitySingleton<CellWorld>
                 //chunks.Add(new CellChunk(textureSize, new ChunkCoordinate(i, j, 0)));
             }
         }
+        */
     }
 
     //********************************************************************
@@ -78,11 +84,12 @@ public class CellWorld : UnitySingleton<CellWorld>
 
     void OnDestroy()
     {
+        /*
         for (int i = 0; i < chunks.Count; i++)
         {
             chunks[i]?.DisposeChunk();
         }
-
+        */
         chunk?.DisposeChunk();
         counterBuffer?.Dispose();
         argsBuffer?.Dispose();

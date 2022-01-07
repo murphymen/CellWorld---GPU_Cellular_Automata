@@ -8,20 +8,20 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
 {
     // Shader and kernels.
     public ComputeShader chunkShader;
-    //int PopulateCellMapKernel;
     int ClearDataKernel;
     int OneStepKernel;
     int DrawChunkKernel;
+    int SetCellsKernel;
 
 
     // Start is called before the first frame update
     void Start()
     {
         // Compute Shader kernels
-        //PopulateCellMapKernel = chunkShader.FindKernel("PopulateCellMap");
         ClearDataKernel = chunkShader.FindKernel("ClearData");
         OneStepKernel = chunkShader.FindKernel("OneStep");
         DrawChunkKernel = chunkShader.FindKernel("DrawChunk");
+        SetCellsKernel = chunkShader.FindKernel("SetCells");
     }
 
     // function info header

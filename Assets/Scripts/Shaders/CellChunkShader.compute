@@ -2,6 +2,7 @@
 #pragma kernel ClearData;
 #pragma kernel OneStep;
 #pragma kernel DrawChunk;
+#pragma kernel SetCells;
 
 #include "Cell.cginc"
 
@@ -46,6 +47,23 @@ void ClearData (uint3 id : SV_DispatchThreadID)
     _cellChunkBuffer[flatIndex].isMoved = 0;
     _cellChunkBuffer[flatIndex].value = 0;
     _cellChunkBuffer[flatIndex].type = 0;
+}
+
+[numthreads(1, 1, 1)]
+void SetCells (uint3 id : SV_DispatchThreadID)
+{
+    // Boundary check
+    if(id.x >= _width || id.y >= _height)
+        return;
+
+    for(int j = 0; j < _inputHeight; j++)
+    {
+        for(int i = 0; i < _inputWidth; i++)
+        {
+            uint flatIndex = i + (j * _width);
+            _cellChunkBuffer[flatIndex] = _inputBuffer[flatIndex];
+        }
+    }
 }
 
 [numthreads(8,8,1)]

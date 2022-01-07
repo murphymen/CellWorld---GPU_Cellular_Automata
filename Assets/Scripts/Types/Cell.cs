@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct Cell
+public class Cell
 {
     [SerializeField]
     public bool isActive;
@@ -13,4 +13,11 @@ public struct Cell
     public uint type;
     [SerializeField]
     public uint value;
+
+    public Cell(uint _type, bool _isActive)
+    {
+        isActive = _isActive;
+        isMoved = false;
+        type = _type;
+    }
 }
