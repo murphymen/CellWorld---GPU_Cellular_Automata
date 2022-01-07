@@ -14,10 +14,20 @@ public class Cell
     [SerializeField]
     public uint value;
 
+    public Cell(uint _type)
+    {
+        isActive = true;
+        isMoved = false;
+        type = _type;
+        value = 0;
+    }
+
     public Cell(uint _type, bool _isActive)
     {
         isActive = _isActive;
         isMoved = false;
         type = _type;
     }
+
+
 }

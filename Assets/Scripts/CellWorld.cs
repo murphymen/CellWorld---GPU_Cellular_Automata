@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class CellWorld : UnitySingleton<CellWorld>
 {
+    // World data3
+     
     public Vector2Int worldSize;
+    public Vector2Int chunkSize;
     public Vector2Int textureSize;
     public List<CellChunk> chunks;
     public Material material;
     public RenderTexture renderTexture;
-
-    // Debug
+    // Input
+    public Vector2Int inputSize;
     public ComputeBuffer inputBuffer;
+    public Cell[] inputCells;
+    // Debug
     public ComputeBuffer counterBuffer;
     public ComputeBuffer argsBuffer;
     uint[] counter = new uint[1];
@@ -49,10 +54,10 @@ public class CellWorld : UnitySingleton<CellWorld>
         counterBuffer = new ComputeBuffer(1, 4, ComputeBufferType.Counter);
         argsBuffer = new ComputeBuffer(1, sizeof(int), ComputeBufferType.IndirectArguments);
 
-        // load from file
-        chunk = new CellChunk();
-        chunk.Initalize(new Vector2Int(32, 32), new ChunkCoordinate(0, 0, 0));
-        chunk.InsertCell(new Vector2Int(16, 16), 1);
+        // Create chunk
+        chunk = new CellChunk(chunkSize, new ChunkCoordinate(0, 0, 0));
+        // LoadFromFile in assets folder
+        LoadFromFile("Assets/inputChunk.txt");
 
         /*
         chunks = new List<CellChunk>();
@@ -108,4 +113,29 @@ public class CellWorld : UnitySingleton<CellWorld>
             
         }
     }
+
+    // ***********************************************************************
+    // function:    LoadFromFile
+    // description: Loads the chunk from a file
+    // parameters:  string fileName - the name of the file to load
+    // ***********************************************************************
+    public void LoadFromFile(string fileName)
+    {
+        string[] lines = System.IO.File.ReadAllLines(fileName);
+
+        for (int j = 0; j < lines.Length; j++)
+        {
+            for (int i = 0; i < lines[0].Length; i++)
+            {
+                int index = i + j * lines[0].Length;
+                if (lines[j][i] == '.')
+                    inputCells[index] = new Cell(0);
+                else if (lines[i][j] == '#')
+                    inputCells[index] = new Cell(1);
+                else
+                    inputCells[index] = new Cell(2);
+            }
+        }
+    }
+
 }
