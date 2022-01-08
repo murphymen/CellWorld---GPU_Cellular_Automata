@@ -11,15 +11,16 @@ public class CellWorld : UnitySingleton<CellWorld>
     public Vector2Int textureSize;
     public List<CellChunk> chunks;
     public Material material;
-    public RenderTexture renderTexture;
+    public RenderTexture mainBuffer;
     // Input
     public Vector2Int inputSize;
     public ComputeBuffer inputBuffer;
-    public Cell[] inputCells;
+    public uint[] inputCells;
     // Debug
     public ComputeBuffer counterBuffer;
     public ComputeBuffer argsBuffer;
     uint[] counter = new uint[1];
+    public uint[] debugArray;
     public CellChunk chunk;
 
 
@@ -28,6 +29,11 @@ public class CellWorld : UnitySingleton<CellWorld>
     {
         if (worldSize.x < 1 || worldSize.y < 1) return;
         AllocateMemory();
+
+        // LoadFromFile in assets folder
+        LoadFromFile("Assets/inputChunk.txt");
+        ChunkShaderController.Instance.InsertToChunk(chunk, inputBuffer, inputCells);
+
     }
 
     // Update is called once per frame
@@ -42,13 +48,13 @@ public class CellWorld : UnitySingleton<CellWorld>
     void AllocateMemory()
     {
         //
-        renderTexture = new RenderTexture(textureSize.x, textureSize.y, 24);
-        renderTexture.wrapMode = TextureWrapMode.Repeat;
-        renderTexture.enableRandomWrite = true;
-        renderTexture.filterMode = FilterMode.Point;
-        renderTexture.useMipMap = false;
-        renderTexture.Create();
-        material.SetTexture("_renderTexture", renderTexture);
+        mainBuffer = new RenderTexture(textureSize.x, textureSize.y, 24);
+        mainBuffer.wrapMode = TextureWrapMode.Repeat;
+        mainBuffer.enableRandomWrite = true;
+        mainBuffer.filterMode = FilterMode.Point;
+        mainBuffer.useMipMap = false;
+        mainBuffer.Create();
+        material.SetTexture("_mainBuffer", mainBuffer);
 
         // 
         counterBuffer = new ComputeBuffer(1, 4, ComputeBufferType.Counter);
@@ -56,9 +62,7 @@ public class CellWorld : UnitySingleton<CellWorld>
 
         // Create chunk
         chunk = new CellChunk(chunkSize, new ChunkCoordinate(0, 0, 0));
-        // LoadFromFile in assets folder
-        LoadFromFile("Assets/inputChunk.txt");
-
+        
         /*
         chunks = new List<CellChunk>();
         for (int j = 0; j < worldSize.y; j++)
@@ -76,10 +80,11 @@ public class CellWorld : UnitySingleton<CellWorld>
     //********************************************************************
     void OneStep()
     {
-        ChunkShaderController.Instance.OneStep(chunk, renderTexture);
-        ChunkShaderController.Instance.DrawChunk(chunk, renderTexture);
-        material.mainTexture = renderTexture;
-        Debug.Log("CellWorld.OneStep");
+        ChunkShaderController.Instance.OneStep(chunk, mainBuffer);
+        ChunkShaderController.Instance.DrawChunk(chunk, mainBuffer);
+        material.mainTexture = mainBuffer;
+        debugArray = new uint[inputSize.x*inputSize.y];
+        inputBuffer.GetData(debugArray);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -98,7 +103,8 @@ public class CellWorld : UnitySingleton<CellWorld>
         chunk?.DisposeChunk();
         counterBuffer?.Dispose();
         argsBuffer?.Dispose();
-        renderTexture?.Release();
+        mainBuffer?.Release();
+        inputBuffer?.Dispose();
     }
 
     // On gui
@@ -122,18 +128,21 @@ public class CellWorld : UnitySingleton<CellWorld>
     public void LoadFromFile(string fileName)
     {
         string[] lines = System.IO.File.ReadAllLines(fileName);
+        inputSize = new Vector2Int(lines[0].Length, lines.Length);
+        inputCells = new uint[inputSize.x * inputSize.y];
+        inputBuffer = new ComputeBuffer(inputSize.x * inputSize.y, sizeof(uint));
 
-        for (int j = 0; j < lines.Length; j++)
+        for (int j = 0; j < inputSize.y; j++)
         {
-            for (int i = 0; i < lines[0].Length; i++)
+            for (int i = 0; i < inputSize.x; i++)
             {
-                int index = i + j * lines[0].Length;
+                int index = i + j * inputSize.x;
                 if (lines[j][i] == '.')
-                    inputCells[index] = new Cell(0);
+                    inputCells[index] = 0;
                 else if (lines[i][j] == '#')
-                    inputCells[index] = new Cell(1);
+                    inputCells[index] = 1;
                 else
-                    inputCells[index] = new Cell(2);
+                    inputCells[index] = 2;
             }
         }
     }

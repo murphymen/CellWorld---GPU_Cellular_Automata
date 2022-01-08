@@ -8,13 +8,14 @@ public class CellChunk
     public ChunkCoordinate position;
     public ComputeBuffer buffer;
 
-
+/*
     public CellChunk()
     {
         size = new Vector2Int(0, 0);
         position = new ChunkCoordinate(0, 0, 0);
         buffer = new ComputeBuffer(0, sizeof(uint));
     }
+*/
 
     public CellChunk(Vector2Int _size, ChunkCoordinate chunkCoord)
     {

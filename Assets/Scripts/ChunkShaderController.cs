@@ -30,7 +30,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     //********************************************************************
     public void ClearData(CellChunk chunk)
     {
-        chunkShader.SetBuffer(ClearDataKernel, "_cellChunkBuffer", chunk.buffer);
+        chunkShader.SetBuffer(ClearDataKernel, "_chunkBuffer", chunk.buffer);
         chunkShader.DispatchThreads(ClearDataKernel, chunk.size.x, chunk.size.y, 1);
     }
 
@@ -42,8 +42,10 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     {
         chunkShader.SetInt("_width", chunk.size.x);
         chunkShader.SetInt("_height", chunk.size.y);
-        chunkShader.SetTexture(OneStepKernel, "_renderTexture", tex);
-        chunkShader.SetBuffer(OneStepKernel, "_cellChunkBuffer", chunk.buffer);
+        chunkShader.SetTexture(OneStepKernel, "_mainBuffer", tex);
+        chunkShader.SetBuffer(OneStepKernel, "_chunkBuffer", chunk.buffer);
+        //chunkShader.SetBuffer(OneStepKernel, "_inputBuffer", CellWorld.Instance.inputBuffer);
+
         chunkShader.DispatchThreads(OneStepKernel, chunk.size.x, chunk.size.y, 1);
 
         Debug.Log("ChunkShaderControllerOneStep");
@@ -57,10 +59,28 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     {
         chunkShader.SetInt("_width", chunk.size.x);
         chunkShader.SetInt("_height", chunk.size.y);
-        chunkShader.SetTexture(DrawChunkKernel, "_renderTexture", tex);
-        chunkShader.SetBuffer(DrawChunkKernel, "_cellChunkBuffer", chunk.buffer);
+        chunkShader.SetTexture(DrawChunkKernel, "_mainBuffer", tex);
+        chunkShader.SetBuffer(DrawChunkKernel, "_chunkBuffer", chunk.buffer);
         chunkShader.DispatchThreads(DrawChunkKernel, chunk.size.x, chunk.size.y, 1);
 
         Debug.Log("ChunkShaderController.DrawChunk");
+    }
+
+    // function info header
+    //********************************************************************
+    //  load array of cells from file.
+    //********************************************************************
+    public void InsertToChunk(CellChunk chunk, ComputeBuffer __inputBuffer, uint[] __inputArray)
+    {
+        chunkShader.SetInt("_width", chunk.size.x);
+        chunkShader.SetInt("_height", chunk.size.y);
+        chunkShader.SetInt("_inputWidth", CellWorld.Instance.inputSize.x);
+        chunkShader.SetInt("_inputHeight", CellWorld.Instance.inputSize.y);
+        chunkShader.SetBuffer(SetCellsKernel, "_chunkBuffer", chunk.buffer);
+        chunkShader.SetBuffer(SetCellsKernel, "_inputBuffer", __inputBuffer);  
+        __inputBuffer.SetData(__inputArray);
+
+        chunkShader.DispatchThreads(SetCellsKernel, chunk.size.x, chunk.size.y, 1);
+        Debug.Log("ChunkShaderController.LoadCellsFromFile");     
     }
 }
