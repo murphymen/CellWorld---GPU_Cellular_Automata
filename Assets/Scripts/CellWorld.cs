@@ -107,10 +107,16 @@ public class CellWorld : UnitySingleton<CellWorld>
         GUI.Label(new Rect(10, 10, 100, 20), "Cells: " + counter[0]);
 
         // Button OneStep
-        if (GUI.Button(new Rect(10, 30, 100, 20), "OneStep"))
+        if (GUI.Button(new Rect(10, 30, 100, 20), "Load"))
         {
             // Load From File in assets folder
             LoadFromFile("Assets/inputChunk.txt");
+        }
+
+        // Button OneStep
+        if (GUI.Button(new Rect(10, 50, 100, 20), "OneStep"))
+        {
+            OneStep();
         }
     }
 

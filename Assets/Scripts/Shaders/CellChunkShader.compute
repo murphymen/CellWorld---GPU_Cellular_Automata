@@ -118,6 +118,8 @@ void OneStep (uint3 id : SV_DispatchThreadID)
     //    return;
     uint flatIndex = id.x + (id.y * _width);
 
+    _chunkBuffer[1].type = 666;
+
     switch(_chunkBuffer[flatIndex].type)
     {
         case 1:
@@ -134,7 +136,7 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
 
     uint flatIndex = id.x + (id.y * _width);
 
-    _chunkBuffer[1].type = 666;
+    _chunkBuffer[2].type = 666;
     switch(_chunkBuffer[flatIndex].type)
     {
         case 0:
