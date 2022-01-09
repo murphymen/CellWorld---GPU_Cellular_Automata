@@ -26,8 +26,8 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         CopyInputKernel = chunkShader.FindKernel("CopyInput");
 
         chunkShader.SetBool("debug", CellWorld.Instance.debug);
-        chunkShader.SetInt("_width", CellWorld.Instance.worldSize.x);
-        chunkShader.SetInt("_height", CellWorld.Instance.worldSize.y);
+        chunkShader.SetInt("_width", CellWorld.Instance.chunkSize.x);
+        chunkShader.SetInt("_height", CellWorld.Instance.chunkSize.y);
     }
 
     // function info header
@@ -63,16 +63,15 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     {
         chunkShader.SetTexture(DrawChunkKernel, "_mainBuffer", tex);
         chunkShader.SetBuffer(DrawChunkKernel, "_chunkBuffer", chunk.buffer);
-        chunkShader.SetBuffer(DrawChunkKernel, "_debugBuffer", CellWorld.Instance.debugBuffer);
+        //chunkShader.SetBuffer(DrawChunkKernel, "_debugBuffer", CellWorld.Instance.debugBuffer);
 
         chunkShader.DispatchThreads(DrawChunkKernel, chunk.size.x, chunk.size.y, 1);
         
         if(CellWorld.Instance.debug) 
         {
-            CellWorld.Instance.debugBuffer.GetData(CellWorld.Instance.debugArray);
+            //CellWorld.Instance.debugBuffer.GetData(CellWorld.Instance.debugArray);
             Debug.Log("Debug: DrawChunk");
         }
-        //Debug.Log("ChunkShaderController.DrawChunk");
     }
 
     // function info header
@@ -88,7 +87,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         chunkShader.SetBuffer(DrawChunkKernel, "_debugBuffer", CellWorld.Instance.debugBuffer);
 
         //__inputBuffer.SetData(__inputArray);
-        chunkShader.DispatchThreads(SetCellsKernel, 1, 1 , 1);
+        chunkShader.DispatchThreads(SetCellsKernel, 1, 1, 1);
         //chunkShader.DispatchThreads(SetCellsKernel, chunk.size.x, chunk.size.y, 1);
         //CellWorld.Instance.debugBuffer.GetData(CellWorld.Instance.debugArray);
         //Debug.Log("ChunkShaderController.LoadCellsFromFile");     

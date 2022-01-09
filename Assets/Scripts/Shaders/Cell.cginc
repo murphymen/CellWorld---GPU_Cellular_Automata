@@ -1,7 +1,7 @@
 struct Cell
 {
-    bool isActive;
-    bool isMoved;
+    uint isActive;
+    uint isMoved;
     uint type;
     uint value;
 };

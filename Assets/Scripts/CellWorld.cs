@@ -12,6 +12,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     public Material material;
     public RenderTexture mainBuffer;
     // Input
+    public string[] lines;
     public Vector2Int inputSize;
     public ComputeBuffer inputBuffer;
     public uint[] inputCells;
@@ -41,11 +42,11 @@ public class CellWorld : UnitySingleton<CellWorld>
 
     //  function info header
     //********************************************************************
-    //
+    //  Allocate memory for the world
     //********************************************************************
     void AllocateMemory()
     {
-        //
+        // Create texture
         mainBuffer = new RenderTexture(textureSize.x, textureSize.y, 24);
         mainBuffer.wrapMode = TextureWrapMode.Repeat;
         mainBuffer.enableRandomWrite = true;
@@ -54,7 +55,7 @@ public class CellWorld : UnitySingleton<CellWorld>
         mainBuffer.Create();
         material.SetTexture("_mainBuffer", mainBuffer);
 
-        // 
+        // Create Counter
         counterBuffer = new ComputeBuffer(1, 4, ComputeBufferType.Counter);
         argsBuffer = new ComputeBuffer(1, sizeof(int), ComputeBufferType.IndirectArguments);
 
@@ -64,8 +65,8 @@ public class CellWorld : UnitySingleton<CellWorld>
         // Debug
         if(debug)
         {
-            debugBuffer = new ComputeBuffer(chunkSize.x * chunkSize.y, sizeof(uint));
-            debugArray = new uint[chunkSize.x * chunkSize.y];
+            //debugBuffer = new ComputeBuffer(chunkSize.x * chunkSize.y, sizeof(uint));
+            //debugArray = new uint[chunkSize.x * chunkSize.y];
         }
     }
 
@@ -74,7 +75,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     //********************************************************************
     void OneStep()
     {
-        ChunkShaderController.Instance.OneStep(chunk, mainBuffer);
+        //ChunkShaderController.Instance.OneStep(chunk, mainBuffer);
         ChunkShaderController.Instance.DrawChunk(chunk, mainBuffer);
         material.mainTexture = mainBuffer;
     }
@@ -120,7 +121,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     // ***********************************************************************
     public void LoadFromFile(string fileName)
     {
-        string[] lines = System.IO.File.ReadAllLines(fileName);
+        lines = System.IO.File.ReadAllLines(fileName);
         inputSize = new Vector2Int(lines[0].Length, lines.Length);
         inputCells = new uint[inputSize.x * inputSize.y];
         inputBuffer = new ComputeBuffer(inputSize.x * inputSize.y, sizeof(uint));
@@ -132,15 +133,17 @@ public class CellWorld : UnitySingleton<CellWorld>
                 int index = i + j * inputSize.x;
                 if (lines[j][i] == '.')
                     inputCells[index] = 0;
-                else if (lines[j][j] == '#')
+                else if (lines[j][i] == '#')
                     inputCells[index] = 1;
                 else
                     inputCells[index] = 2;
             }
         }
 
+        inputBuffer.SetData(inputCells);
         // Copy input buffer to chunk
         ChunkShaderController.Instance.CopyInput(chunk, mainBuffer);
+        inputBuffer.Release();
 
         material.mainTexture = mainBuffer;
     }

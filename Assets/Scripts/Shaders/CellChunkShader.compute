@@ -68,18 +68,15 @@ void SetCells (uint3 id : SV_DispatchThreadID)
             _chunkBuffer[flatIndex].isActive = 1;
             _chunkBuffer[flatIndex].isMoved = 0;
             
-            // Debug
-            if(_debug)
-            {
-                _chunkBuffer[1].type = 2;
-                _debugBuffer[flatIndex] = _chunkBuffer[flatIndex].type;
-            }
+            
         }
     }
-   // _chunkBuffer[1].type = 1;
-    _mainBuffer[id.xy] = float4(1,1,1,1);
-    _chunkBuffer[3].type = 666;
 
+    // Debug
+    if(_debug)
+    {
+        _chunkBuffer[3].type = 666;
+    }
 }
 
 [numthreads(8,8,1)]
@@ -95,7 +92,7 @@ void CopyInput (uint3 id : SV_DispatchThreadID)
     _chunkBuffer[flatIndex].isMoved = 0;
 
     
-    _chunkBuffer[2].type = 666;
+    _chunkBuffer[0].type = 666;
     /*
     switch(_chunkBuffer[flatIndex].type)
     {
@@ -137,7 +134,7 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
 
     uint flatIndex = id.x + (id.y * _width);
 
-    //_chunkBuffer[1].type = 666;
+    _chunkBuffer[1].type = 666;
     switch(_chunkBuffer[flatIndex].type)
     {
         case 0:
