@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class CellWorld : UnitySingleton<CellWorld>
 {
-    // World data3
-     
+    // World data
     public Vector2Int worldSize;
     public Vector2Int chunkSize;
     public Vector2Int textureSize;
-    public List<CellChunk> chunks;
+    //public List<CellChunk> chunks;
     public Material material;
     public RenderTexture mainBuffer;
     // Input
@@ -17,9 +16,11 @@ public class CellWorld : UnitySingleton<CellWorld>
     public ComputeBuffer inputBuffer;
     public uint[] inputCells;
     // Debug
+    public bool debug;
     public ComputeBuffer counterBuffer;
     public ComputeBuffer argsBuffer;
     uint[] counter = new uint[1];
+    public ComputeBuffer debugBuffer;
     public uint[] debugArray;
     public CellChunk chunk;
 
@@ -29,16 +30,13 @@ public class CellWorld : UnitySingleton<CellWorld>
     {
         if (worldSize.x < 1 || worldSize.y < 1) return;
         AllocateMemory();
-
-        // LoadFromFile in assets folder
-        LoadFromFile("Assets/inputChunk.txt");
-        ChunkShaderController.Instance.InsertToChunk(chunk, inputBuffer, inputCells);
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        ChunkShaderController.Instance.DrawChunk(chunk, mainBuffer);
+        material.mainTexture = mainBuffer;
     }
 
     //  function info header
@@ -62,17 +60,13 @@ public class CellWorld : UnitySingleton<CellWorld>
 
         // Create chunk
         chunk = new CellChunk(chunkSize, new ChunkCoordinate(0, 0, 0));
-        
-        /*
-        chunks = new List<CellChunk>();
-        for (int j = 0; j < worldSize.y; j++)
+
+        // Debug
+        if(debug)
         {
-            for (int i = 0; i < worldSize.x; i++)
-            {
-                //chunks.Add(new CellChunk(textureSize, new ChunkCoordinate(i, j, 0)));
-            }
+            debugBuffer = new ComputeBuffer(chunkSize.x * chunkSize.y, sizeof(uint));
+            debugArray = new uint[chunkSize.x * chunkSize.y];
         }
-        */
     }
 
     //********************************************************************
@@ -83,8 +77,6 @@ public class CellWorld : UnitySingleton<CellWorld>
         ChunkShaderController.Instance.OneStep(chunk, mainBuffer);
         ChunkShaderController.Instance.DrawChunk(chunk, mainBuffer);
         material.mainTexture = mainBuffer;
-        debugArray = new uint[inputSize.x*inputSize.y];
-        inputBuffer.GetData(debugArray);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -105,6 +97,7 @@ public class CellWorld : UnitySingleton<CellWorld>
         argsBuffer?.Dispose();
         mainBuffer?.Release();
         inputBuffer?.Dispose();
+        debugBuffer?.Dispose();
     }
 
     // On gui
@@ -115,8 +108,8 @@ public class CellWorld : UnitySingleton<CellWorld>
         // Button OneStep
         if (GUI.Button(new Rect(10, 30, 100, 20), "OneStep"))
         {
-            OneStep();
-            
+            // Load From File in assets folder
+            LoadFromFile("Assets/inputChunk.txt");
         }
     }
 
@@ -139,12 +132,17 @@ public class CellWorld : UnitySingleton<CellWorld>
                 int index = i + j * inputSize.x;
                 if (lines[j][i] == '.')
                     inputCells[index] = 0;
-                else if (lines[i][j] == '#')
+                else if (lines[j][j] == '#')
                     inputCells[index] = 1;
                 else
                     inputCells[index] = 2;
             }
         }
+
+        // Copy input buffer to chunk
+        ChunkShaderController.Instance.CopyInput(chunk, mainBuffer);
+
+        material.mainTexture = mainBuffer;
     }
 
 }

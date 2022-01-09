@@ -256,9 +256,11 @@ MonoBehaviour:
   chunkSize: {x: 32, y: 32}
   textureSize: {x: 32, y: 32}
   material: {fileID: 2100000, guid: e49ae862e932ef347920fa72c6a66d3a, type: 2}
-  renderTexture: {fileID: 0}
+  mainBuffer: {fileID: 0}
   inputSize: {x: 0, y: 0}
-  inputCells: []
+  inputCells: 
+  debug: 1
+  debugArray: 
 --- !u!1 &710473837
 GameObject:
   m_ObjectHideFlags: 0

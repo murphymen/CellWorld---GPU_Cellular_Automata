@@ -6,9 +6,9 @@ using UnityEngine;
 public class Cell
 {
     [SerializeField]
-    public bool isActive;
+    public uint isActive;
     [SerializeField]
-    public bool isMoved;
+    public uint isMoved;
     [SerializeField]
     public uint type;
     [SerializeField]
@@ -16,16 +16,16 @@ public class Cell
 
     public Cell(uint _type)
     {
-        isActive = true;
-        isMoved = false;
+        isActive = 1;
+        isMoved = 0;
         type = _type;
         value = 0;
     }
 
-    public Cell(uint _type, bool _isActive)
+    public Cell(uint _type, uint _isActive)
     {
         isActive = _isActive;
-        isMoved = false;
+        isMoved = 0;
         type = _type;
     }
 
