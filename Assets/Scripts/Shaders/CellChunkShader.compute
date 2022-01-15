@@ -4,6 +4,8 @@
 #pragma kernel SetCells;
 #pragma kernel CopyInput;
 
+#define DOWN_LEFT 0
+#define DOWN 1
 
 #include "Cell.cginc"
 #include "Directions.cginc"
@@ -26,6 +28,11 @@ bool CheckBottom(uint x, uint y)
     return _chunkBuffer[x + (y-1) * _width].type > 0;
 }
 
+bool CheckCell(uint x, uint y, uint dir)
+{
+    return _chunkBuffer[(x+direction[dir].x) + (y+direction[dir].y) * _width].type > 0;
+}
+
 void MoveBottom(uint x, uint y)
 {
     if (y == 0)
@@ -34,21 +41,37 @@ void MoveBottom(uint x, uint y)
     _chunkBuffer[x + y * _width].type = 0;
 }
 
+void MoveCell(uint x, uint y, uint dir)
+{
+    _chunkBuffer[(x+direction[dir].x) + (y+direction[dir].y) * _width].type = _chunkBuffer[x + y * _width].type;
+    _chunkBuffer[x + y * _width].type = 0;
+}
+
 void SandBehavior(uint2 id)
 {
     uint flatIndex = id.x + (id.y * _width);
 
     // if below this cell is empty, then move down
-    if(!CheckBottom(id.x, id.y))
+    if(!CheckCell(id.x, id.y, 1))
     {
        MoveBottom(id.x, id.y);
     }
     else
     {
-       
+        if(!CheckCell(id.x, id.y, DOWN_LEFT))
+            MoveCell(id.x, id.y, DOWN_LEFT);
     }
 
     _chunkBuffer[6].type = 666;
+}
+
+void SandEmmiterBehaviour(uint2 id)
+{
+    // if below this cell is empty, then make below type 1
+    if(!CheckCell(id.x, id.y, 1))
+    {
+        _chunkBuffer[(id.x) + (id.y-1) * _width].type = 1;
+    }
 }
 
 [numthreads(8, 8, 1)]
@@ -131,14 +154,17 @@ void OneStep (uint3 id : SV_DispatchThreadID)
     //    return;
     uint flatIndex = id.x + (id.y * _width);
 
-    _chunkBuffer[1].type = 666;
-
     switch(_chunkBuffer[flatIndex].type)
     {
         case 1:
             SandBehavior(uint2(id.x, id.y));
             break;
+        case 10:
+            SandEmmiterBehaviour(id.xy);
+            break;
     }
+
+    _chunkBuffer[1].type = 666;
 }
 
 [numthreads(8,8,1)]
@@ -157,6 +183,9 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
             break;
         case 1:
             _mainBuffer[id.xy] = float4(.5, .5, .5, 1);
+            break;
+        case 10:
+            _mainBuffer[id.xy] = float4(0, 1, 0, 1);
             break;
         case 666:
             _mainBuffer[id.xy] = float4(1, 0, 0, 1);

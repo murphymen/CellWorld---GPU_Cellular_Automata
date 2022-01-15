@@ -137,12 +137,19 @@ public class CellWorld : UnitySingleton<CellWorld>
             for (int i = 0; i < inputSize.x; i++)
             {
                 int index = i + j * inputSize.x;
-                if (lines[j][i] == '.')
-                    inputCells[index] = 0;
-                else if (lines[j][i] == '#')
-                    inputCells[index] = 1;
-                else
-                    inputCells[index] = 2;
+
+                switch (lines[j][i])
+                {
+                    case '.':
+                        inputCells[index] = 0;
+                        break;
+                    case '#':
+                        inputCells[index] = 1;
+                        break;
+                    case 'e':
+                        inputCells[index] = 10;
+                        break;
+                }
             }
         }
 
