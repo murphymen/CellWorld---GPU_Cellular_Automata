@@ -1,11 +1,13 @@
-//#pragma kernel SetCells;
 #pragma kernel ClearData;
 #pragma kernel OneStep;
 #pragma kernel DrawChunk;
 #pragma kernel SetCells;
 #pragma kernel CopyInput;
 
+
 #include "Cell.cginc"
+#include "Directions.cginc"
+
 
 uint _width;
 uint _height;
@@ -17,23 +19,36 @@ RWStructuredBuffer<uint> _inputBuffer;
 bool _debug;
 RWStructuredBuffer<uint> _debugBuffer;
 
+bool CheckBottom(uint x, uint y)
+{
+    if (y == 0)
+        return true;
+    return _chunkBuffer[x + (y-1) * _width].type > 0;
+}
+
+void MoveBottom(uint x, uint y)
+{
+    if (y == 0)
+        return;
+    _chunkBuffer[x + (y-1) * _width].type = _chunkBuffer[x + y * _width].type;
+    _chunkBuffer[x + y * _width].type = 0;
+}
 
 void SandBehavior(uint2 id)
 {
     uint flatIndex = id.x + (id.y * _width);
 
     // if below this cell is empty, then move down
-    if(_chunkBuffer[flatIndex - _width].type != 0)
+    if(!CheckBottom(id.x, id.y))
     {
-        _chunkBuffer[flatIndex - _width] = _chunkBuffer[flatIndex];
-        _chunkBuffer[flatIndex - _width].isMoved = 1;
-        
-        // clear cell on flatIndex
-        _chunkBuffer[flatIndex].isActive = 0;
-        _chunkBuffer[flatIndex].isMoved = 0;
-        _chunkBuffer[flatIndex].value = 0;
-        _chunkBuffer[flatIndex].type = 0;
+       MoveBottom(id.x, id.y);
     }
+    else
+    {
+       
+    }
+
+    _chunkBuffer[6].type = 666;
 }
 
 [numthreads(8, 8, 1)]
@@ -67,8 +82,6 @@ void SetCells (uint3 id : SV_DispatchThreadID)
             _chunkBuffer[flatIndex].type = _inputBuffer[flatIndex];
             _chunkBuffer[flatIndex].isActive = 1;
             _chunkBuffer[flatIndex].isMoved = 0;
-            
-            
         }
     }
 

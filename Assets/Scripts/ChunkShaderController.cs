@@ -44,12 +44,10 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     //********************************************************************
     //  One step of the simulation.
     //********************************************************************
-    public void OneStep(CellChunk chunk, RenderTexture tex)
+    public void OneStep(CellChunk chunk)
     {
         //chunkShader.SetTexture(OneStepKernel, "_mainBuffer", tex);
         chunkShader.SetBuffer(OneStepKernel, "_chunkBuffer", chunk.buffer);
-        //chunkShader.SetBuffer(OneStepKernel, "_inputBuffer", CellWorld.Instance.inputBuffer);
-
         chunkShader.DispatchThreads(OneStepKernel, chunk.size.x, chunk.size.y, 1);
 
         Debug.Log("ChunkShaderControllerOneStep");
