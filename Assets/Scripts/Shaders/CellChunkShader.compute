@@ -21,15 +21,32 @@ void SandBehavior(uint2 id)
 {
     uint flatIndex = id.x + (id.y * _width);
 
+    bool check_down_left = CheckCell(id.x, id.y, DOWN_LEFT);
+    bool check_down = CheckCell(id.x, id.y, DOWN);
+    bool check_down_right = CheckCell(id.x, id.y, DOWN_RIGHT);
+
     // if below this cell is empty, then move down
-    if(!CheckCell(id.x, id.y, DOWN))
+    if(!check_down)
     {
         MoveCell(id.x, id.y, DOWN);
     }
     else
     {
-        if(!CheckCell(id.x, id.y, DOWN_LEFT))
+        if(!check_down_left && !check_down_right)
+        {
+            if(_evenIteration)
+                MoveCell(id.x, id.y, DOWN_LEFT);
+            else
+                MoveCell(id.x, id.y, DOWN_RIGHT);
+        }
+        else if(!check_down_left && check_down_right)
+        {
             MoveCell(id.x, id.y, DOWN_LEFT);
+        }
+        else if(check_down_left && !check_down_right)
+        {
+            MoveCell(id.x, id.y, DOWN_RIGHT);
+        }
     }
 
     _chunkBuffer[6].type = 666;
@@ -97,22 +114,9 @@ void CopyInput (uint3 id : SV_DispatchThreadID)
     _chunkBuffer[flatIndex].isActive = 1;
     _chunkBuffer[flatIndex].isMoved = 0;
 
-    
-    _chunkBuffer[0].type = 666;
-    /*
-    switch(_chunkBuffer[flatIndex].type)
-    {
-        case 0:
-            _mainBuffer[id.xy] = float4(0, 0, 0, 1);
-            break;
-        case 1:
-            _mainBuffer[id.xy] = float4(.5, .5, .5, 1);
-            break;
-        case 666:
-            _mainBuffer[id.xy] = float4(1, 0, 0, 1);
-            break;
-    }
-    */
+    // Debug
+    if(_debug) 
+        _chunkBuffer[0].type = 666;
 }
 
 [numthreads(8,8,1)]

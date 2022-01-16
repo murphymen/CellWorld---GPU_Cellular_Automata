@@ -13,6 +13,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     int DrawChunkKernel;
     int SetCellsKernel;
     int CopyInputKernel;
+    public bool evenIteration;
 
 
     // Start is called before the first frame update
@@ -28,6 +29,8 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         chunkShader.SetBool("debug", CellWorld.Instance.debug);
         chunkShader.SetInt("_width", CellWorld.Instance.chunkSize.x);
         chunkShader.SetInt("_height", CellWorld.Instance.chunkSize.y);
+
+        evenIteration = true;
     }
 
     // function info header
@@ -46,9 +49,10 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     //********************************************************************
     public void OneStep(CellChunk chunk)
     {
-        //chunkShader.SetTexture(OneStepKernel, "_mainBuffer", tex);
+        chunkShader.SetBool("_evenIteration", evenIteration);
         chunkShader.SetBuffer(OneStepKernel, "_chunkBuffer", chunk.buffer);
         chunkShader.DispatchThreads(OneStepKernel, chunk.size.x, chunk.size.y, 1);
+        evenIteration = !evenIteration;
 
         Debug.Log("ChunkShaderControllerOneStep");
     }

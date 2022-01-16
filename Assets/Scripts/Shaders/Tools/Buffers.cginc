@@ -13,6 +13,7 @@ RWStructuredBuffer<Cell> _chunkBuffer;
 RWStructuredBuffer<uint> _inputBuffer;
 bool _debug;
 RWStructuredBuffer<uint> _debugBuffer;
+bool _evenIteration;
 
 
 #endif

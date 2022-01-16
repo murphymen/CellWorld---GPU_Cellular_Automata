@@ -8,9 +8,9 @@ public class CellWorld : UnitySingleton<CellWorld>
     public Vector2Int worldSize;
     public Vector2Int chunkSize;
     public Vector2Int textureSize;
-    //public List<CellChunk> chunks;
     public Material material;
     public RenderTexture mainBuffer;
+    public bool evenIteration = true;
     // Input
     public string[] lines;
     public Vector2Int inputSize;
