@@ -1,9 +1,9 @@
-#ifndef _CellCheck_
-#define _CellCheck_
+#ifndef _CellMove_
+#define _CellMove_
 
 #include "Assets/Scripts/Shaders/Tools/Buffers.cginc"
-#include "Assets/Scripts/Shaders/Tools/Directions.cginc"
-#include "Assets/Scripts/Shaders/Types/Cell.cginc"
+//#include "Assets/Scripts/Shaders/Tools/Directions.cginc"
+//#include "Assets/Scripts/Shaders/Types/Cell.cginc"
 
 
 
