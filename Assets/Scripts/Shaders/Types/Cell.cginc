@@ -1,3 +1,6 @@
+#ifndef _Cell_
+#define _Cell_
+
 struct Cell
 {
     uint isActive;
@@ -5,3 +8,6 @@ struct Cell
     uint type;
     uint value;
 };
+
+
+#endif

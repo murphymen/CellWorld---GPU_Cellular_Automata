@@ -1,0 +1,38 @@
+#ifndef _DrawChunkKernel_
+#define _DrawChunkKernel_
+
+#pragma kernel DrawChunk;
+
+#include "Assets/Scripts/Shaders/Tools/Buffers.cginc"
+
+
+
+[numthreads(8,8,1)]
+void DrawChunk (uint3 id : SV_DispatchThreadID)
+{
+    if(id.x >= _width || id.y >= _height)
+        return;
+
+    uint flatIndex = id.x + (id.y * _width);
+
+    _chunkBuffer[2].type = 666;
+    switch(_chunkBuffer[flatIndex].type)
+    {
+        case 0:
+            _mainBuffer[id.xy] = float4(0, 0, 0, 1);
+            break;
+        case 1:
+            _mainBuffer[id.xy] = float4(.5, .5, .5, 1);
+            break;
+        case 10:
+            _mainBuffer[id.xy] = float4(0, 1, 0, 1);
+            break;
+        case 666:
+            _mainBuffer[id.xy] = float4(1, 0, 0, 1);
+            break;
+    }
+    
+}
+
+
+#endif
