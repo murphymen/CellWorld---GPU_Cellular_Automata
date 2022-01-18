@@ -1,0 +1,92 @@
+Base path: 'C:/Program Files/Unity/Hub/Editor/2021.2.8f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2021.2.8f1/Editor/Data/PlaybackEngines'
+Cmd: initializeCompiler
+
+Cmd: compileComputeKernel
+  insize=4100 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=CopyInput cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=758
+
+Cmd: compileComputeKernel
+  insize=4100 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=1501
+
+Cmd: compileComputeKernel
+  insize=4262 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at CellChunkShader.compute(26): 'CheckCell': no matching 3 parameter function
+  error: 2 plat 4 at CellChunkShader.compute(26): undeclared identifier 'DOWN_RIGHT'
+ ok=0 outsize=0
+
+
+Cmd: compileComputeKernel
+  insize=4262 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=1501
+
+Cmd: compileComputeKernel
+  insize=4634 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=DrawChunk cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at CellChunkShader.compute(54): syntax error: unexpected token '('
+  error: 2 plat 4 at CellChunkShader.compute(61): syntax error: unexpected token '}'
+ ok=0 outsize=0
+
+Cmd: compileComputeKernel
+  insize=4641 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=CopyInput cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=758
+
+Cmd: compileComputeKernel
+  insize=4641 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=SetCells cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=1051
+
+Cmd: compileComputeKernel
+  insize=4641 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=ClearData cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=575
+
+Cmd: compileComputeKernel
+  insize=4320 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=CopyInput cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=808
+
+Cmd: compileComputeKernel
+  insize=4320 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=DrawChunk cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=886
+
+
+
+
+
+Cmd: compileComputeKernel
+  insize=3405 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=DrawChunk cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at CellChunkShader.compute(101): undeclared identifier 'SandBehavior'
+ ok=0 outsize=0
+
+Cmd: compileComputeKernel
+  insize=3470 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=DrawChunk cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/CellAtlas/SandBehaviour.cginc(18): undeclared identifier 'MoveCell'
+ ok=0 outsize=0
+
+
+
+
+Cmd: compileComputeKernel
+  insize=3267 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=CopyInput cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/Tools/Directions.cginc(1): redefinition of 'direction'
+ ok=0 outsize=0
+
+Cmd: compileComputeKernel
+  insize=3267 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=SetCells cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/Tools/Directions.cginc(1): redefinition of 'direction'
+ ok=0 outsize=0
+
+Cmd: compileComputeKernel
+  insize=3267 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/Tools/Directions.cginc(1): redefinition of 'direction'
+ ok=0 outsize=0
+
+
+Cmd: compileComputeKernel
+  insize=3267 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/CellAtlas/SandBehaviour.cginc(21): undeclared identifier 'MoveCell'
+ ok=0 outsize=0
+
+
+
+Cmd: compileComputeKernel
+  insize=3323 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=ClearData cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/CellAtlas/SandBehaviour.cginc(21): undeclared identifier 'MoveCell'
+ ok=0 outsize=0
+
+
+Cmd: compileComputeKernel
+  insize=3323 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=OneStep cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0  error: 2 plat 4 at Assets/Scripts/Shaders/CellAtlas/SandBehaviour.cginc(21): undeclared identifier 'MoveCell'
+ ok=0 outsize=0
+
+
+Cmd: compileComputeKernel
+  insize=4320 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=CopyInput cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=808
+
+Cmd: compileComputeKernel
+  insize=4320 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=SetCells cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=1051
+
+Cmd: compileComputeKernel
+  insize=4320 file=C:/Marcin/Projekty/CellWorld---GPU_Cellular_Automata/Assets/Scripts/Shaders/CellChunkShader.compute kernel=ClearData cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<;=1>,<UNITY_VERSION=202128> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_RGBM_ENCODING uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 reqs=16385 forceDXC=0 forceFXC=0 ok=1 outsize=575
+
+Cmd: shutdown
