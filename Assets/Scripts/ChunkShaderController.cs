@@ -13,6 +13,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     int DrawChunkKernel;
     int SetCellsKernel;
     int CopyInputKernel;
+    int InsertCellsKernel;
     public bool evenIteration;
 
 
@@ -23,8 +24,8 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         ClearDataKernel = chunkShader.FindKernel("ClearData");
         OneStepKernel = chunkShader.FindKernel("OneStep");
         DrawChunkKernel = chunkShader.FindKernel("DrawChunk");
-        SetCellsKernel = chunkShader.FindKernel("SetCells");
         CopyInputKernel = chunkShader.FindKernel("CopyInput");
+        InsertCellsKernel = chunkShader.FindKernel("InsertCells");
 
         chunkShader.SetBool("debug", CellWorld.Instance.debug);
         chunkShader.SetInt("_width", CellWorld.Instance.chunkSize.x);
@@ -87,4 +88,18 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         chunkShader.DispatchThreads(CopyInputKernel, chunk.size.x, chunk.size.y, 1);
         //Debug.Log("ChunkShaderController.CopyInput");
     }
+
+    // function info header 
+    //********************************************************************
+    //  Insert cells from inputCellBuffer to chunk buffer.
+    //********************************************************************
+    public void InsertCells(CellChunk chunk)
+    {
+        chunkShader.SetInt("_inputLength", CellWorld.Instance.inputLength);
+        chunkShader.SetBuffer(InsertCellsKernel, "_chunkBuffer", chunk.buffer);
+        chunkShader.SetBuffer(InsertCellsKernel, "_inputCellsBuffer", CellWorld.Instance.inputCellsBuffer);
+        chunkShader.Dispatch(InsertCellsKernel, 1, 1, 1);
+        CellWorld.Instance.inputCellsBuffer.Release();
+    }
+
 }

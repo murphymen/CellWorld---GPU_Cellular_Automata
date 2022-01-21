@@ -1,8 +1,8 @@
 #pragma kernel ClearData;
 #pragma kernel OneStep;
 #pragma kernel DrawChunk;
-#pragma kernel SetCells;
 #pragma kernel CopyInput;
+#pragma kernel InsertCells;
 
 #include "Assets/Scripts/Shaders/Types/Cell.cginc"
 #include "Assets/Scripts/Shaders/Tools/Directions.cginc"
@@ -10,11 +10,23 @@
 #include "Assets/Scripts/Shaders/Tools/CellCheck.cginc"
 
 
+bool ChunkBoundaryCheck(uint2 pos)
+{
+    return pos.x>=0 && pos.x<_width && pos.y>=0 && pos.y<_height;
+}
 
 void MoveCell(uint x, uint y, uint dir)
 {
     _chunkBuffer[(x+direction[dir].x) + (y+direction[dir].y) * _width].type = _chunkBuffer[x + y * _width].type;
     _chunkBuffer[x + y * _width].type = 0;
+}
+
+void SetCell(uint2 pos, uint type)
+{
+    if(ChunkBoundaryCheck(pos))
+    {
+        _chunkBuffer[pos.x + pos.y * _width].type = type;
+    }
 }
 
 void SandBehavior(uint2 id)
@@ -55,7 +67,7 @@ void SandBehavior(uint2 id)
 void SandEmmiterBehaviour(uint2 id)
 {
     // if below this cell is empty, then make below type 1
-    if(!CheckCell(id.x, id.y, 1))
+    if(!CheckCell(id.x, id.y-1, 1))
     {
         _chunkBuffer[(id.x) + (id.y-1) * _width].type = 1;
     }
@@ -77,42 +89,18 @@ void ClearData (uint3 id : SV_DispatchThreadID)
     _chunkBuffer[flatIndex].type = 0;
 }
 
-[numthreads(8, 8, 1)]
-void SetCells (uint3 id : SV_DispatchThreadID)
-{
-    //Boundary check
-    if(id.x >= _width || id.y >= _height)
-        return;
-
-    for(uint j = 0; j < _inputHeight; j++)
-    {
-        for(uint i = 0; i < _inputWidth; i++)
-        {
-            uint flatIndex = i + (j * _inputWidth);
-            _chunkBuffer[flatIndex].type = _inputBuffer[flatIndex];
-            _chunkBuffer[flatIndex].isActive = 1;
-            _chunkBuffer[flatIndex].isMoved = 0;
-        }
-    }
-
-    // Debug
-    if(_debug)
-    {
-        _chunkBuffer[3].type = 666;
-    }
-}
-
 [numthreads(8,8,1)]
 void CopyInput (uint3 id : SV_DispatchThreadID)
 {
     // Boundary check
-    if(id.x >= _width || id.y >= _height)
+    if(!ChunkBoundaryCheck(id.xy))
         return;
 
-    uint flatIndex = id.x + (id.y * _inputWidth);
-    _chunkBuffer[flatIndex].type = _inputBuffer[flatIndex];
-    _chunkBuffer[flatIndex].isActive = 1;
-    _chunkBuffer[flatIndex].isMoved = 0;
+    uint inFlatIndex = id.x + (id.y * _inputWidth);
+    uint outFlatIndex = id.x + (id.y * _width);
+    _chunkBuffer[outFlatIndex].type = _inputBuffer[inFlatIndex];
+    _chunkBuffer[outFlatIndex].isActive = 1;
+    _chunkBuffer[outFlatIndex].isMoved = 0;
 
     // Debug
     if(_debug) 
@@ -122,10 +110,9 @@ void CopyInput (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void OneStep (uint3 id : SV_DispatchThreadID)
 {
-    if(id.x >= _width || id.y >= _height)
+    if(!ChunkBoundaryCheck(id.xy))
         return;
-    //if(_chunkBuffer[id.x + (id.y * _width)].isMoved == 1)
-    //    return;
+
     uint flatIndex = id.x + (id.y * _width);
 
     switch(_chunkBuffer[flatIndex].type)
@@ -144,7 +131,7 @@ void OneStep (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void DrawChunk (uint3 id : SV_DispatchThreadID)
 {
-    if(id.x >= _width || id.y >= _height)
+    if(!ChunkBoundaryCheck(id.xy))
         return;
 
     uint flatIndex = id.x + (id.y * _width);
@@ -166,5 +153,19 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
             break;
     }
     
+}
+
+[numthreads(1,1,1)]
+void InsertCells (uint3 id : SV_DispatchThreadID)
+{
+    for(uint i=0; i<_inputLength; i++)
+    {
+        if(ChunkBoundaryCheck(uint2(_inputCellsBuffer[i].position.x, _inputCellsBuffer[i].position.y)))
+        {
+            _chunkBuffer[(_inputCellsBuffer[i].position.x) + (_inputCellsBuffer[i].position.y * _width)].type = _inputCellsBuffer[i].type;
+            _chunkBuffer[(_inputCellsBuffer[i].position.x) + (_inputCellsBuffer[i].position.y * _width)].isActive = 1;
+            _chunkBuffer[(_inputCellsBuffer[i].position.x) + (_inputCellsBuffer[i].position.y * _width)].isMoved = 0;
+        }
+    }
 }
 

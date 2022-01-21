@@ -3,6 +3,8 @@
 
 struct Cell
 {
+    float2 position;
+    float2 velocity;
     uint isActive;
     uint isMoved;
     uint type;

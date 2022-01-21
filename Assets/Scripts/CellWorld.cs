@@ -14,8 +14,11 @@ public class CellWorld : UnitySingleton<CellWorld>
     // Input
     public string[] lines;
     public Vector2Int inputSize;
+    public int inputLength;
     public ComputeBuffer inputBuffer;
+    public ComputeBuffer inputCellsBuffer;
     public uint[] inputCells;
+    public Cell[] inputCellsArray;
     // Debug
     public bool debug;
     public ComputeBuffer counterBuffer;
@@ -109,7 +112,8 @@ public class CellWorld : UnitySingleton<CellWorld>
         if (GUI.Button(new Rect(10, 30, 100, 20), "Load"))
         {
             // Load From File in assets folder
-            LoadFromFile("Assets/inputChunk.txt");
+            //LoadFromFile("Assets/inputChunk.txt");
+            InsertCells();
         }
 
         // Button OneStep
@@ -157,7 +161,23 @@ public class CellWorld : UnitySingleton<CellWorld>
         ChunkShaderController.Instance.CopyInput(chunk, mainBuffer);
         inputBuffer.Release();
 
-        material.mainTexture = mainBuffer;
+        //material.mainTexture = mainBuffer;
+    }
+
+    // ***********************************************************************
+    // function:    InsertCells
+    // ***********************************************************************
+    public void InsertCells()
+    {
+        inputLength = 3;
+        ChunkShaderController.Instance.chunkShader.SetInt("_inputLength", inputLength);
+        inputCellsArray = new Cell[3];
+        inputCellsArray[0] = new Cell(new Vector2(0, 50), 10);
+        inputCellsArray[1] = new Cell(new Vector2(64, 90), 10);
+        inputCellsArray[2] = new Cell(new Vector2(100, 60), 10);
+        inputCellsBuffer = new ComputeBuffer(3, sizeof(uint)*8, ComputeBufferType.Structured);
+        inputCellsBuffer.SetData(inputCellsArray);
+        ChunkShaderController.Instance.InsertCells(chunk);
     }
 
 }

@@ -193,8 +193,8 @@ Camera:
   m_GameObject: {fileID: 679472261}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -255,14 +255,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSize: {x: 1, y: 1}
-  chunkSize: {x: 24, y: 24}
-  textureSize: {x: 24, y: 24}
+  chunkSize: {x: 128, y: 128}
+  textureSize: {x: 128, y: 128}
   material: {fileID: 2100000, guid: e49ae862e932ef347920fa72c6a66d3a, type: 2}
   mainBuffer: {fileID: 0}
+  evenIteration: 1
   lines: []
   inputSize: {x: 0, y: 0}
+  inputLength: 0
   inputCells: 
-  debug: 1
+  inputCellsArray: []
+  debug: 0
   debugArray: 
 --- !u!1 &710473837
 GameObject:
@@ -392,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkShader: {fileID: 7200000, guid: a649ba5b5f7a95547826d80d1c76bc63, type: 3}
+  evenIteration: 0
 --- !u!4 &1339567477
 Transform:
   m_ObjectHideFlags: 0
