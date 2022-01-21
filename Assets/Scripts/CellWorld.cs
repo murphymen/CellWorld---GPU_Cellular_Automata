@@ -36,8 +36,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     // Update is called once per frame
     void Update()
     {
-        //ChunkShaderController.Instance.DrawChunk(chunk, mainBuffer);
-        //material.mainTexture = mainBuffer;
+        OneStep();
     }
 
     //  function info header

@@ -54,7 +54,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         chunkShader.DispatchThreads(OneStepKernel, chunk.size.x, chunk.size.y, 1);
         evenIteration = !evenIteration;
 
-        Debug.Log("ChunkShaderControllerOneStep");
+        //Debug.Log("ChunkShaderControllerOneStep");
     }
 
     // function info header
@@ -65,34 +65,12 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     {
         chunkShader.SetTexture(DrawChunkKernel, "_mainBuffer", tex);
         chunkShader.SetBuffer(DrawChunkKernel, "_chunkBuffer", chunk.buffer);
-        //chunkShader.SetBuffer(DrawChunkKernel, "_debugBuffer", CellWorld.Instance.debugBuffer);
-
         chunkShader.DispatchThreads(DrawChunkKernel, chunk.size.x, chunk.size.y, 1);
         
         if(CellWorld.Instance.debug) 
         {
-            //CellWorld.Instance.debugBuffer.GetData(CellWorld.Instance.debugArray);
             Debug.Log("Debug: DrawChunk");
         }
-    }
-
-    // function info header
-    //********************************************************************
-    //  load array of cells from file.
-    //********************************************************************
-    public void InsertToChunk(CellChunk chunk, ComputeBuffer __inputBuffer, uint[] __inputArray, RenderTexture tex)
-    {
-        chunkShader.SetInt("_inputWidth", CellWorld.Instance.inputSize.x);
-        chunkShader.SetInt("_inputHeight", CellWorld.Instance.inputSize.y);
-        chunkShader.SetTexture(DrawChunkKernel, "_mainBuffer", tex);
-        chunkShader.SetBuffer(DrawChunkKernel, "_chunkBuffer", chunk.buffer);
-        chunkShader.SetBuffer(DrawChunkKernel, "_debugBuffer", CellWorld.Instance.debugBuffer);
-
-        //__inputBuffer.SetData(__inputArray);
-        chunkShader.DispatchThreads(SetCellsKernel, 1, 1, 1);
-        //chunkShader.DispatchThreads(SetCellsKernel, chunk.size.x, chunk.size.y, 1);
-        //CellWorld.Instance.debugBuffer.GetData(CellWorld.Instance.debugArray);
-        //Debug.Log("ChunkShaderController.LoadCellsFromFile");     
     }
 
     // function info header 
@@ -106,9 +84,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         chunkShader.SetTexture(CopyInputKernel, "_mainBuffer", tex);
         chunkShader.SetBuffer(CopyInputKernel, "_chunkBuffer", chunk.buffer);
         chunkShader.SetBuffer(CopyInputKernel, "_inputBuffer", CellWorld.Instance.inputBuffer);
-
-
         chunkShader.DispatchThreads(CopyInputKernel, chunk.size.x, chunk.size.y, 1);
-        Debug.Log("ChunkShaderController.CopyInput");
+        //Debug.Log("ChunkShaderController.CopyInput");
     }
 }
