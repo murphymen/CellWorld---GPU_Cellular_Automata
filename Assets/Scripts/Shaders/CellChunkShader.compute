@@ -6,76 +6,10 @@
 
 #include "Assets/Scripts/Shaders/Types/Cell.cginc"
 #include "Assets/Scripts/Shaders/Tools/Directions.cginc"
-#include "Assets/Scripts/Shaders/Tools/Buffers.cginc"
-#include "Assets/Scripts/Shaders/Tools/CellCheck.cginc"
+#include "Assets/Scripts/Shaders/Tools/CellOperations.cginc"
+#include "Assets/Scripts/Shaders/CellAtlas/SandBehaviour.cginc"
+#include "Assets/Scripts/Shaders/CellAtlas/SandEmmiterBehaviour.cginc"
 
-
-bool ChunkBoundaryCheck(uint2 pos)
-{
-    return pos.x>=0 && pos.x<_width && pos.y>=0 && pos.y<_height;
-}
-
-void MoveCell(uint x, uint y, uint dir)
-{
-    _chunkBuffer[(x+direction[dir].x) + (y+direction[dir].y) * _width].type = _chunkBuffer[x + y * _width].type;
-    _chunkBuffer[x + y * _width].type = 0;
-}
-
-void SetCell(uint2 pos, uint type)
-{
-    if(ChunkBoundaryCheck(pos))
-    {
-        _chunkBuffer[pos.x + pos.y * _width].type = type;
-    }
-}
-
-void SandBehavior(uint2 id)
-{
-    uint flatIndex = id.x + (id.y * _width);
-
-    bool check_down_left = CheckCell(id.x, id.y, DOWN_LEFT);
-    bool check_down = CheckCell(id.x, id.y, DOWN);
-    bool check_down_right = CheckCell(id.x, id.y, DOWN_RIGHT);
- 
-    // Branching by switch statement
-    //bool any_down_free = check_down_left || check_down || check_down_right;
-
-    // if below this cell is empty, then move down
-    if(!check_down)
-    {
-        MoveCell(id.x, id.y, DOWN);
-    }
-    else
-    {
-        if(!check_down_left && !check_down_right)
-        {
-            if(_evenIteration)
-                MoveCell(id.x, id.y, DOWN_LEFT);
-            else
-                MoveCell(id.x, id.y, DOWN_RIGHT);
-        }
-        else if(!check_down_left && check_down_right)
-        {
-            MoveCell(id.x, id.y, DOWN_LEFT);
-        }
-        else if(check_down_left && !check_down_right)
-        {
-            MoveCell(id.x, id.y, DOWN_RIGHT);
-        }
-    }
-
-
-    _chunkBuffer[6].type = 666;
-}
-
-void SandEmmiterBehaviour(uint2 id)
-{
-    // if below this cell is empty, then make below type 1
-    if(!CheckCell(id.x, id.y-1, 1))
-    {
-        _chunkBuffer[(id.x) + (id.y-1) * _width].type = 1;
-    }
-}
 
 [numthreads(8, 8, 1)]
 void ClearData (uint3 id : SV_DispatchThreadID)
@@ -128,8 +62,6 @@ void OneStep (uint3 id : SV_DispatchThreadID)
             SandEmmiterBehaviour(id.xy);
             break;
     }
-
-    _chunkBuffer[1].type = 666;
 }
 
 [numthreads(8,8,1)]
@@ -156,7 +88,6 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
             _mainBuffer[id.xy] = float4(1, 0, 0, 1);
             break;
     }
-    
 }
 
 [numthreads(1,1,1)]

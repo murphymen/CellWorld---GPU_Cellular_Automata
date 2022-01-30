@@ -1,9 +1,7 @@
 #ifndef _SandBehaviour_
 #define _SandBehaviour_
 
-#include "Assets/Scripts/Shaders/Tools/CellCheck.cginc"
-#include "Assets/Scripts/Shaders/Tools/Directions.cginc"
-
+#include "Assets/Scripts/Shaders/Tools/CellOperations.cginc"
 
 
 void SandBehavior(uint2 id)
@@ -13,6 +11,9 @@ void SandBehavior(uint2 id)
     bool check_down_left = CheckCell(id.x, id.y, DOWN_LEFT);
     bool check_down = CheckCell(id.x, id.y, DOWN);
     bool check_down_right = CheckCell(id.x, id.y, DOWN_RIGHT);
+ 
+    // Branching by switch statement
+    //bool any_down_free = check_down_left || check_down || check_down_right;
 
     // if below this cell is empty, then move down
     if(!check_down)
@@ -37,8 +38,6 @@ void SandBehavior(uint2 id)
             MoveCell(id.x, id.y, DOWN_RIGHT);
         }
     }
-
-    _chunkBuffer[6].type = 666;
 }
 
 
