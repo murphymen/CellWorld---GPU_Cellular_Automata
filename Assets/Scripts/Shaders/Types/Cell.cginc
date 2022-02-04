@@ -3,6 +3,7 @@
 
 struct Cell
 {
+    //float4 color;
     float2 position;
     float2 velocity;
     uint isActive;
