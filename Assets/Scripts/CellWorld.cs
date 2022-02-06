@@ -49,7 +49,7 @@ public class CellWorld : UnitySingleton<CellWorld>
     void AllocateMemory()
     {
         // Create texture
-        mainBuffer = new RenderTexture(textureSize.x, textureSize.y, 24);
+        mainBuffer = new RenderTexture(textureSize.x, textureSize.y, 24, RenderTextureFormat.ARGB32); //new RenderTexture(textureSize.x, textureSize.y, 24);
         mainBuffer.wrapMode = TextureWrapMode.Repeat;
         mainBuffer.enableRandomWrite = true;
         mainBuffer.filterMode = FilterMode.Point;

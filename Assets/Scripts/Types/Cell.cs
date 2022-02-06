@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public struct Cell
 {
-    //[SerializeField]
-    //public Vector4 color;
     [SerializeField]
     public Vector2 position;
     [SerializeField]
@@ -18,7 +16,8 @@ public struct Cell
     [SerializeField]
     public uint type;
     [SerializeField]
-    public uint value;
+    public Color32 colorIndex;
+
 
 
     public Cell(uint _type)
@@ -29,7 +28,7 @@ public struct Cell
         isActive = 1;
         isMoved = 0;
         type = _type;
-        value = 0;
+        colorIndex = new Color32(0, 0, 0, 0);
     }
 
     public Cell(Vector2 _position, uint _type)
@@ -40,6 +39,6 @@ public struct Cell
         isActive = 1;
         isMoved = 0;
         type = _type;
-        value = 0;
+        colorIndex = new Color32(0, 0, 0, 0);
     }
 }

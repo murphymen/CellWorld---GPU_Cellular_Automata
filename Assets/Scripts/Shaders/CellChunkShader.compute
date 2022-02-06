@@ -23,7 +23,7 @@ void ClearData (uint3 id : SV_DispatchThreadID)
     
     _chunkBuffer[flatIndex].isActive = 0;
     _chunkBuffer[flatIndex].isMoved = 0;
-    _chunkBuffer[flatIndex].value = 0;
+    _chunkBuffer[flatIndex].colorIndex = 0;
     _chunkBuffer[flatIndex].type = 0;
 }
 
@@ -72,7 +72,6 @@ void DrawChunk (uint3 id : SV_DispatchThreadID)
 
     uint flatIndex = id.x + (id.y * _width);
 
-    _chunkBuffer[2].type = 666;
     switch(_chunkBuffer[flatIndex].type)
     {
         case 0:
