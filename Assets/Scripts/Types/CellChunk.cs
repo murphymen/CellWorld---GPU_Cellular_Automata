@@ -16,12 +16,17 @@ public class CellChunk
         buffer = new ComputeBuffer(0, sizeof(uint));
     }
 */
+    void AllocateMemory()
+    {
+        // Create texture
+        buffer = new ComputeBuffer(size.x * size.y, sizeof(uint));
+    }
 
     public CellChunk(Vector2Int _size, ChunkCoordinate chunkCoord)
     {
         size = _size;
         position = chunkCoord;
-        buffer = new ComputeBuffer(size.x*size.y, sizeof(uint)*4, ComputeBufferType.Structured);
+        AllocateMemory();
     }
 
     public void DisposeChunk()
@@ -33,7 +38,7 @@ public class CellChunk
     {
         size = _size;
         position = chunkCoord;
-        buffer = new ComputeBuffer(size.x*size.y, sizeof(uint)*4, ComputeBufferType.Structured);
+        AllocateMemory();
     }
 
     bool IsInChunk(Vector2Int _pos)
