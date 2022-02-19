@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1280
     height: 637.3334
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,11 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
+<<<<<<< HEAD
   controlID: 21
+=======
+  controlID: 67
+>>>>>>> parent of e79fef1 (ColorGenerator)
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,12 +143,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 913
+    width: 744
     height: 587
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
+<<<<<<< HEAD
   controlID: 63
+=======
+  controlID: 68
+>>>>>>> parent of e79fef1 (ColorGenerator)
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,12 +172,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 913
+    width: 744
     height: 348
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
+<<<<<<< HEAD
   controlID: 64
+=======
+  controlID: 69
+>>>>>>> parent of e79fef1 (ColorGenerator)
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -187,7 +199,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 215
+    width: 174
     height: 348
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
@@ -211,9 +223,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 215
+    x: 174
     y: 0
-    width: 698
+    width: 570
     height: 348
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
@@ -240,7 +252,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 348
-    width: 913
+    width: 744
     height: 239
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
@@ -265,9 +277,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 913
+    x: 744
     y: 0
-    width: 367
+    width: 536
     height: 587
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
@@ -296,9 +308,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 215.33334
+    x: 174
     y: 72.66667
-    width: 696
+    width: 568
     height: 327
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -314,11 +326,11 @@ MonoBehaviour:
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_EnterPlayModeBehavior: 0
+  m_EnterPlayModeBehavior: 1
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
-  m_Stats: 0
+  m_Stats: 1
   m_SelectedSizes: 03000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
@@ -346,23 +358,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 696
+      width: 568
       height: 306
     m_Scale: {x: 0.425, y: 0.425}
-    m_Translation: {x: 348, y: 153}
+    m_Translation: {x: 284, y: 153}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -818.8235
+      x: -668.2353
       y: -360
-      width: 1637.647
+      width: 1336.4706
       height: 720
     m_MinimalGUI: 1
   m_defaultScale: 0.425
-  m_LastWindowPixelSize: {x: 1044, y: 490.5}
+  m_LastWindowPixelSize: {x: 852, y: 490.5}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -390,7 +402,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 72.66667
-    width: 214
+    width: 173
     height: 327
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -399,7 +411,11 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
       m_SelectedIDs: 4e200000
+=======
+      m_SelectedIDs: 725b0000
+>>>>>>> parent of e79fef1 (ColorGenerator)
       m_LastClickedID: 0
       m_ExpandedIDs: 26fbffff
       m_RenameOverlay:
@@ -752,7 +768,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 420.6667
+<<<<<<< HEAD
     width: 912
+=======
+    width: 743
+>>>>>>> parent of e79fef1 (ColorGenerator)
     height: 218
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -771,22 +791,37 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
+<<<<<<< HEAD
     - Assets/Scripts/Shaders
+=======
+    - Assets/Scripts/Shaders/Tools
+>>>>>>> parent of e79fef1 (ColorGenerator)
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
+<<<<<<< HEAD
   - Assets/Scripts/Shaders
+=======
+  - Assets/Scripts/Shaders/Tools
+>>>>>>> parent of e79fef1 (ColorGenerator)
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Projekty\000_Shaders\CellWorld - GPU_Cellular_Automata
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< HEAD
     scrollPos: {x: 0, y: 74}
     m_SelectedIDs: 605b0000
     m_LastClickedID: 23392
     m_ExpandedIDs: 00000000cc5900005a5b0000605b000000ca9a3b
+=======
+    scrollPos: {x: 0, y: 62}
+    m_SelectedIDs: ec590000
+    m_LastClickedID: 23020
+    m_ExpandedIDs: 00000000d0590000de590000e259000000ca9a3b
+>>>>>>> parent of e79fef1 (ColorGenerator)
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -892,7 +927,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 420.6667
-    width: 912
+    width: 743
     height: 218
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -918,9 +953,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 913.3334
+    x: 744
     y: 72.66667
-    width: 366
+    width: 535
     height: 566
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
