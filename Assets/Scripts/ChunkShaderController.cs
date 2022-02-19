@@ -8,7 +8,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
 {
     // Shader and kernels.
     public ComputeShader chunkShader;
-    public ComputeBuffer colorBuffer;
+    //public ComputeBuffer colorBuffer;
     int ClearDataKernel;
     int OneStepKernel;
     int DrawChunkKernel;
@@ -17,7 +17,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     int InsertCellsKernel;
     public bool evenIteration;
     
-
+/*
     void CreateColorPallettes()
     {
         colorBuffer = new ComputeBuffer(128, sizeof(uint));
@@ -25,6 +25,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
         ColorGenerator colorGenerator = new ColorGenerator();
         colorBuffer.SetData(colorGenerator.GetPalette(1));
     }
+*/
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +43,12 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
 
         evenIteration = true;
 
-        CreateColorPallettes();
+        //CreateColorPallettes();
     }
 
     void OnDestroy()
     {
-        colorBuffer.Dispose();
+        //colorBuffer.Dispose();
     }
 
     // function info header
@@ -82,7 +83,7 @@ public class ChunkShaderController : UnitySingleton<ChunkShaderController>
     {
         chunkShader.SetTexture(DrawChunkKernel, "_mainBuffer", tex);
         chunkShader.SetBuffer(DrawChunkKernel, "_chunkBuffer", chunk.buffer);
-        chunkShader.SetBuffer(DrawChunkKernel, "_colorBuffer", colorBuffer);
+        //chunkShader.SetBuffer(DrawChunkKernel, "_colorBuffer", colorBuffer);
         chunkShader.DispatchThreads(DrawChunkKernel, chunk.size.x, chunk.size.y, 1);
         
         if(CellWorld.Instance.debug) 
